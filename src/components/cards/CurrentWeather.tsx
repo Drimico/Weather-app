@@ -8,7 +8,7 @@ interface CurentWeatherProps {
 }
 export const CurrentWeather = ({ coords }: CurentWeatherProps) => {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather", coords],
+    queryKey: ["weather", coords.lat, coords.lon],
     queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
   });
   return (

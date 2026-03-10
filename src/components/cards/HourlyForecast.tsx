@@ -5,11 +5,11 @@ import WeatherIcon from "../WeatherIcon";
 import type { Coords } from "../../types";
 
 interface HourlyForecastProps {
-  coords: Coords
+  coords: Coords;
 }
 export const HourlyForecast = ({ coords }: HourlyForecastProps) => {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather", coords],
+    queryKey: ["weather", coords.lat, coords.lon],
     queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
   });
   return (
@@ -18,7 +18,10 @@ export const HourlyForecast = ({ coords }: HourlyForecastProps) => {
       childrenClassName="flex gap-6 overflow-x-auto"
     >
       {data.hourly.map((hour) => (
-        <div key={hour.dt} className="flex flex-col gap-2 items-center p-2">
+        <div
+          key={hour.dt}
+          className="flex flex-col gap-2 items-center p-2"
+        >
           <p className="whitespace-nowrap">
             {new Date(hour.dt * 1000).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", hour12: true })}
           </p>

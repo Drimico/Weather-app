@@ -15,7 +15,7 @@ interface AdditionalInfoProps {
 }
 export const AdditionalInfo = ({ coords }: AdditionalInfoProps) => {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather", coords],
+    queryKey: ["weather", coords.lat, coords.lon],
     queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
   });
   return (

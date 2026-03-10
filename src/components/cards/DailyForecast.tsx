@@ -5,11 +5,11 @@ import WeatherIcon from "../WeatherIcon";
 import type { Coords } from "../../types";
 
 interface DailyForecastProps {
-  coords: Coords
+  coords: Coords;
 }
 export const DailyForecast = ({ coords }: DailyForecastProps) => {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather", coords],
+    queryKey: ["weather", coords.lat, coords.lon],
     queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
   });
   return (
