@@ -6,25 +6,29 @@ interface MapTypeDropdownProps {
 }
 export const MapTypeDropdown = ({ mapType, setMapType }: MapTypeDropdownProps) => {
   return (
-    <Select
-      value={mapType}
-      onValueChange={(value) => setMapType(value)}
-    >
-      <SelectTrigger className="w-45">
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent className="z-1000 mt-6">
-        {types.map((type) => (
-          <SelectItem
-            key={type}
-            value={type}
-            className="capitalize"
-          >
-            {type.split("_")[0]}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="w-full flex flex-col items-center sm:items-start gap-2">
+      <h1 className="text-2xl font-semibold whitespace-nowrap">Map Type</h1>
+
+      <Select
+        value={mapType}
+        onValueChange={(value) => setMapType(value)}
+      >
+        <SelectTrigger className="sm:w-45 400:w-70 w-full">
+          <SelectValue placeholder="Theme" />
+        </SelectTrigger>
+        <SelectContent className="z-1000">
+          {types.map((type) => (
+            <SelectItem
+              key={type}
+              value={type}
+              className="capitalize"
+            >
+              {type.split("_")[0]}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 const types = ["clouds_new", "precipitation_new", "pressure_new", "wind_new", "temp_new"];

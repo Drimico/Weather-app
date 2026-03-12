@@ -14,7 +14,8 @@ export const CurrentWeather = ({ coords }: CurentWeatherProps) => {
   return (
     <Card
       title="Current Weather"
-      childrenClassName="flex flex-col items-center gap-6"
+      childrenClassName="flex flex-col items-center gap-6 2xl:justify-between"
+      className="h-full"
     >
       <div className="flex flex-col gap-2 items-center">
         <h2 className="text-6xl font-semibold text-center">{Math.round(data.current.temp)}°C</h2>

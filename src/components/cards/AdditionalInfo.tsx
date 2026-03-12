@@ -21,7 +21,7 @@ export const AdditionalInfo = ({ coords }: AdditionalInfoProps) => {
   return (
     <Card
       title="Additional Weather Ino"
-      childrenClassName="flex flex-col gap-8"
+      childrenClassName="grid grid-cols-1 md:grid-cols-2 gap-8"
     >
       {rows.map(({ label, value, Icon }) => (
         <div
@@ -30,7 +30,7 @@ export const AdditionalInfo = ({ coords }: AdditionalInfoProps) => {
         >
           <div className="flex gap-4">
             <span className="text-gray-500">{label}</span>
-            <Icon className="size-8 invert" />
+            <Icon className="size-8 " />
           </div>
           <span>
             <FormatComponent
@@ -50,7 +50,7 @@ const FormatComponent = ({ value, number }: { value: string; number: number }) =
   if (value === "wind_deg") {
     return (
       <UpArrow
-        className="size-8 invert"
+        className="size-8"
         style={{ transform: `rotate(${number})deg` }}
       />
     );

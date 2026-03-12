@@ -1,3 +1,4 @@
+import { airPollutionSchema } from "./schemas/airPollutionSchema";
 import { geocodeSchema } from "./schemas/geocodeSchema";
 import { weatherSchema } from "./schemas/weatherSchema";
 
@@ -15,6 +16,12 @@ export const getGeocode = async (location: string) => {
   const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${API_KEY}`);
   const data = await res.json();
   console.log(data);
-  
+
   return geocodeSchema.parse(data);
+};
+
+export const getAirPollution = async ({ lat, lon }: { lat: number; lon: number }) => {
+  const res = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
+  const data = await res.json();
+  return airPollutionSchema.parse(data);
 };

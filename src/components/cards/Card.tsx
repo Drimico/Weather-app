@@ -1,13 +1,16 @@
+import clsx from "clsx";
+
 interface CardProps {
   children: React.ReactNode;
-  title: string;
+  title?: string;
+  className?: string;
   childrenClassName?: string;
 }
-const Card = ({ children, title, childrenClassName }: CardProps) => {
+const Card = ({ children, title, childrenClassName, className }: CardProps) => {
   return (
-    <div className="p-4 rounded-xl bg-zinc-900 shadow-md flex flex-col gap-4 bg-linear-to-br from-card to-card/60 ">
+    <div className={clsx("p-4 rounded-xl bg-zinc-900 shadow-md flex flex-col gap-4 2xl:h-full border dark:border-none bg-linear-to-br from-card to-card/60 ", className)}>
       <h2 className="text-2xl font-semibold">{title}</h2>
-      <div className={childrenClassName}>{children}</div>
+      <div className={clsx(childrenClassName, "animate-[fade-in_1s_ease-out_forwards] 2xl:flex-1")}>{children}</div>
     </div>
   );
 };

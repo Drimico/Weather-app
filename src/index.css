@@ -17,6 +17,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --sidebar-width: 23rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -86,6 +87,7 @@
 }
 
 @theme inline {
+  --breakpoint-400: 25rem;
   --font-sans: "Geist Variable", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -126,7 +128,9 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
-
+.dark svg {
+  filter: invert(1);
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -136,5 +140,14 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

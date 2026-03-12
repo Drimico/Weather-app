@@ -9,11 +9,20 @@ import { LocationDropdown } from "./components/dropdowns/LocationDropdown";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getGeocode } from "./api";
 import { MapTypeDropdown } from "./components/dropdowns/MapTypeDropdown";
-
+import { MapLegend } from "./components/MapLegend";
+import { CurrentSkeleton } from "./components/skeletons/CurrentSkeleton";
+import { DailySkeleton } from "./components/skeletons/DailySkeleton";
+import { HourlySkeleton } from "./components/skeletons/HourlySkeleton";
+import { AdditionalSkeleton } from "./components/skeletons/AdditionalSkeleton";
+import { SidePanel } from "./components/SidePanel";
+import Hamburger from "/src/assets/Hamburger.svg?react";
+import { MobileHeader } from "./components/MobileHeader";
+import { LightDarkToggle } from "./components/LightDarkToggle";
 function App() {
   const [coordinates, setCoordinates] = useState<Coords>({ lat: 50, lon: 25 });
   const [location, setLocation] = useState("London");
   const [mapType, setMapType] = useState("clouds_new");
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const { data: geocodeData } = useQuery({
     queryKey: ["geocode", location],
     queryFn: () => getGeocode(location),
@@ -29,35 +38,67 @@ function App() {
   const coords: Coords = location === "custom" ? coordinates : geocodeData ? { lat: geocodeData[0].lat, lon: geocodeData[0].lon } : coordinates;
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex gap-8">
-        <div className="flex gap-4">
-          <h1 className="text-2xl font-semibold">Location</h1>
+    <>
+      <MobileHeader setIsSidePanelOpen={setIsSidePanelOpen} />
+      <div className="flex flex-col pt-4 sm:pt-8 p-8 gap-4 w-full lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen min-h-275">
+        <div className="flex flex-col sm:flex-row gap-4 ">
           <LocationDropdown
             location={location}
             setLocation={setLocation}
           />
-        </div>
-        <div className="flex gap-4">
-          <h1 className="text-2xl font-semibold">Map Type</h1>
           <MapTypeDropdown
             mapType={mapType}
             setMapType={setMapType}
           />
+          <div className="ml-auto flex gap-4 items-center">
+            <div className="hidden sm:block">
+              <LightDarkToggle />
+            </div>
+            <button
+              onClick={() => setIsSidePanelOpen(true)}
+              className="hidden sm:block"
+            >
+              <Hamburger className="size-6  lg:hidden" />
+            </button>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 2xl:flex-1 2xl:min-h-0  2xl:grid-cols-4 2xl:grid-rows-4 gap-4">
+          <div className="relative h-120 2xl:h-auto col-span-1 md:col-span-2 2xl:col-span-4 2xl:row-span-2 order-1">
+            <Map
+              coords={coords}
+              mapType={mapType}
+              onMapClick={onMapClick}
+            />
+            <MapLegend mapType={mapType} />
+          </div>
+          <div className="col-span-1 2xl:row-span-2 order-2">
+            <Suspense fallback={<CurrentSkeleton />}>
+              <CurrentWeather coords={coords} />
+            </Suspense>
+          </div>
+          <div className="col-span-1 order-3 2xl:order-4 2xl:row-span-2">
+            <Suspense fallback={<DailySkeleton />}>
+              <DailyForecast coords={coords} />
+            </Suspense>
+          </div>
+          <div className="col-span-1 md:col-span-2 2xl:row-span-1 order-4 2xl:order-3">
+            <Suspense fallback={<HourlySkeleton />}>
+              <HourlyForecast coords={coords} />
+            </Suspense>
+          </div>
+          <div className="col-span-1 md:col-span-2 2xl:row-span-1 order-5">
+            <Suspense fallback={<AdditionalSkeleton />}>
+              <AdditionalInfo coords={coords} />
+            </Suspense>
+          </div>
         </div>
       </div>
-      <Map
+      <SidePanel
         coords={coords}
-        mapType={mapType}
-        onMapClick={onMapClick}
+        isSidePanelOpen={isSidePanelOpen}
+        setIsSidePanelOpen={setIsSidePanelOpen}
       />
-      <Suspense fallback={<div>Loading weather...</div>}>
-        <CurrentWeather coords={coords} />
-        <HourlyForecast coords={coords} />
-        <DailyForecast coords={coords} />
-        <AdditionalInfo coords={coords} />
-      </Suspense>
-    </div>
+    </>
   );
 }
 

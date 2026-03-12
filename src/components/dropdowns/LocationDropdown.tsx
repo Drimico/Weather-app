@@ -6,25 +6,28 @@ interface LocationDropdownProps {
 }
 export const LocationDropdown = ({ location, setLocation }: LocationDropdownProps) => {
   return (
-    <Select
-      value={location}
-      onValueChange={(value) => setLocation(value)}
-    >
-      <SelectTrigger className="w-45">
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent className="z-1000 mt-6">
-        {location === "custom" && <SelectItem value="custom">Custom</SelectItem>}
-        {locations.map((city) => (
-          <SelectItem
-            key={city}
-            value={city}
-          >
-            {city}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="w-full flex flex-col items-center gap-2 sm:items-start">
+      <h1 className="text-2xl font-semibold">Location</h1>
+      <Select
+        value={location}
+        onValueChange={(value) => setLocation(value)}
+      >
+        <SelectTrigger className="sm:w-45 400:w-70 w-full">
+          <SelectValue placeholder="Theme" />
+        </SelectTrigger>
+        <SelectContent className="z-1000">
+          {location === "custom" && <SelectItem value="custom">Custom</SelectItem>}
+          {locations.map((city) => (
+            <SelectItem
+              key={city}
+              value={city}
+            >
+              {city}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 const locations = [

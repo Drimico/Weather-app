@@ -15,14 +15,14 @@ export const DailyForecast = ({ coords }: DailyForecastProps) => {
   return (
     <Card
       title="Daily Forecast"
-      childrenClassName="flex flex-col gap-4"
+      childrenClassName="flex flex-col gap-4 2xl:justify-between"
     >
       {data.daily.map((day) => (
         <div
           key={day.dt}
           className="flex justify-between items-center"
         >
-          <p>{new Date(day.dt * 1000).toLocaleDateString(undefined, { weekday: "short" })}</p>
+          <p>{new Date(day.dt * 1000).toLocaleDateString("en-US", { weekday: "short" })}</p>
           <WeatherIcon src={day.weather[0].icon} />
           <p className="w-9 text-center">{Math.round(day.temp.day)}°C</p>
           <p className="text-gray-500/75 w-9 text-center">{Math.round(day.temp.min)}°C</p>
