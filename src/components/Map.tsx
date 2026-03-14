@@ -23,7 +23,10 @@ export const Map = ({ coords, mapType, onMapClick }: MapProps) => {
         coords={coords}
       />
       <MapTileLayer />
-      <TileLayer opacity={0.7} url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`} />
+      <TileLayer
+        opacity={0.7}
+        url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}
+      />
       <Marker position={[lat, lon]} />
     </MapContainer>
   );
@@ -46,7 +49,7 @@ const MapTileLayer = () => {
   useEffect(() => {
     const tileLayer = new MaptilerLayer({
       style: "basic-dark",
-      apiKey: "qsJaY2K1c3Y0GGE4byH9",
+      apiKey: import.meta.env.VITE_MAPTILER_KEY,
     });
     tileLayer.addTo(map);
 

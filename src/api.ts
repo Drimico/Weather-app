@@ -13,7 +13,7 @@ export const getWeather = async ({ lat, lon }: { lat: number; lon: number }) => 
 };
 
 export const getGeocode = async (location: string) => {
-  const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${API_KEY}`);
+  const res = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${API_KEY}`);
   const data = await res.json();
   console.log(data);
 
@@ -21,7 +21,7 @@ export const getGeocode = async (location: string) => {
 };
 
 export const getAirPollution = async ({ lat, lon }: { lat: number; lon: number }) => {
-  const res = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
   const data = await res.json();
   return airPollutionSchema.parse(data);
 };
