@@ -1,4 +1,4 @@
-import Hamburger from "/src/assets/Hamburger.svg?react";
+import Hamburger from "../assets/hamburger.svg?react";
 
 interface MobileHeaderProps {
   setIsSidePanelOpen: React.Dispatch<React.SetStateAction<boolean>>;

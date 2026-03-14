@@ -6,8 +6,8 @@ import { Slider } from "./ui/slider";
 import clsx from "clsx";
 import type { Coords } from "@/types";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
-import Information from "/src/assets/information.svg?react";
-import Chevron from "/src/assets/ChevronLeft.svg?react";
+import Information from "../assets/information.svg?react";
+import Chevron from "../assets/ChevronLeft.svg?react";
 import { SidePanelSkeleton } from "./skeletons/SidePanelSkeleton";
 import { LightDarkToggle } from "./LightDarkToggle";
 interface SidePanelProps {
