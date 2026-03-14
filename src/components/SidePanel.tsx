@@ -9,6 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/t
 import Information from "/src/assets/information.svg?react";
 import Chevron from "/src/assets/ChevronLeft.svg?react";
 import { SidePanelSkeleton } from "./skeletons/SidePanelSkeleton";
+import { LightDarkToggle } from "./LightDarkToggle";
 interface SidePanelProps {
   coords: Coords;
   isSidePanelOpen: boolean;
@@ -19,12 +20,12 @@ export const SidePanel = (props: SidePanelProps) => {
   return (
     <div
       className={clsx(
-        "fixed top-0 right-0 h-screen w-(--sidebar-width) shadow-md bg-sidebar z-1001 py-8 px-4 overflow-y-scroll no-scrollbar transition-transform duration-300 lg:translate-x-0! ",
+        "h-screen shadow-md bg-sidebar z-1001 py-8 px-4 overflow-y-scroll no-scrollbar transition-transform duration-300 lg:translate-x-0! whitespace-nowrap fixed top-0 right-0 300:w-full 400:w-(--sidebar-width)",
         isSidePanelOpen ? "translate-x-0" : "translate-x-full",
       )}
     >
       <button onClick={() => setIsSidePanelOpen(false)}>
-        <Chevron className={`size-8  -ml-2 lg:hidden transition-transform duration-300 ${isSidePanelOpen ? "rotate-180" : ""}`} />
+        <Chevron className={`size-8 -ml-2 lg:hidden transition-transform duration-300 ${isSidePanelOpen ? "rotate-180" : ""}`} />
       </button>
       <Suspense fallback={<SidePanelSkeleton />}>
         <AirPolution {...props} />
@@ -40,6 +41,7 @@ const AirPolution = ({ coords }: SidePanelProps) => {
   });
   return (
     <div className="flex flex-col gap-4">
+      <LightDarkToggle />
       <h1 className="text-2xl font-semibold">Air Pollution</h1>
       <h1 className="text-5xl font-semibold">{data.list[0].main.aqi}</h1>
       <div className="flex items-center gap-2">

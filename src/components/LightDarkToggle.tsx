@@ -6,7 +6,7 @@ import { useTheme } from "./ThemeProvider";
 export const LightDarkToggle = () => {
   const { theme, toggleTheme } = useTheme();
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 absolute right-5 top-5">
       <Sun className="size-5 " />
       <Switch
         checked={theme === "dark"}

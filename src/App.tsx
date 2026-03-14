@@ -17,7 +17,6 @@ import { AdditionalSkeleton } from "./components/skeletons/AdditionalSkeleton";
 import { SidePanel } from "./components/SidePanel";
 import Hamburger from "/src/assets/Hamburger.svg?react";
 import { MobileHeader } from "./components/MobileHeader";
-import { LightDarkToggle } from "./components/LightDarkToggle";
 function App() {
   const [coordinates, setCoordinates] = useState<Coords>({ lat: 50, lon: 25 });
   const [location, setLocation] = useState("London");
@@ -40,29 +39,24 @@ function App() {
   return (
     <>
       <MobileHeader setIsSidePanelOpen={setIsSidePanelOpen} />
-      <div className="flex flex-col pt-4 sm:pt-8 p-8 gap-4 w-full lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen min-h-275">
-        <div className="flex flex-col sm:flex-row gap-4 ">
-          <LocationDropdown
-            location={location}
-            setLocation={setLocation}
-          />
-          <MapTypeDropdown
-            mapType={mapType}
-            setMapType={setMapType}
-          />
-          <div className="ml-auto flex gap-4 items-center">
-            <div className="hidden sm:block">
-              <LightDarkToggle />
-            </div>
-            <button
-              onClick={() => setIsSidePanelOpen(true)}
-              className="hidden sm:block"
-            >
-              <Hamburger className="size-6  lg:hidden" />
-            </button>
+      <div className="flex flex-col pt-4 md:p-8 p-4 w-full lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen min-h-275">
+        <button
+          onClick={() => setIsSidePanelOpen(true)}
+          className="hidden sm:block ml-auto pb-4 lg:p-0"
+        >
+          <Hamburger className="size-6 lg:hidden" />
+        </button>
+        <div className="grid grid-cols-1 md:grid-cols-2 2xl:flex-1 2xl:min-h-0 2xl:grid-cols-4 2xl:grid-rows-4 gap-4 relative">
+          <div className="block sm:absolute z-1001 top-20 left-3">
+            <LocationDropdown
+              location={location}
+              setLocation={setLocation}
+            />
+            <MapTypeDropdown
+              mapType={mapType}
+              setMapType={setMapType}
+            />
           </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 2xl:flex-1 2xl:min-h-0  2xl:grid-cols-4 2xl:grid-rows-4 gap-4">
           <div className="relative h-120 2xl:h-auto col-span-1 md:col-span-2 2xl:col-span-4 2xl:row-span-2 order-1">
             <Map
               coords={coords}
@@ -71,7 +65,7 @@ function App() {
             />
             <MapLegend mapType={mapType} />
           </div>
-          <div className="col-span-1 2xl:row-span-2 order-2">
+          <div className="col-span-1  2xl:row-span-2 order-2">
             <Suspense fallback={<CurrentSkeleton />}>
               <CurrentWeather coords={coords} />
             </Suspense>

@@ -87,6 +87,8 @@
 }
 
 @theme inline {
+  
+  --breakpoint-300: 20rem;
   --breakpoint-400: 25rem;
   --font-sans: "Geist Variable", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);

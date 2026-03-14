@@ -6,17 +6,17 @@ interface MapTypeDropdownProps {
 }
 export const MapTypeDropdown = ({ mapType, setMapType }: MapTypeDropdownProps) => {
   return (
-    <div className="w-full flex flex-col items-center sm:items-start gap-2">
-      <h1 className="text-2xl font-semibold whitespace-nowrap">Map Type</h1>
+    <div className=" flex flex-col items-center sm:items-start gap-2 z-1001 top-[30%] left-2">
+      <h1 className="text-2xl font-semibold whitespace-nowrap text-white text-shadow-[2px_2px_2px] text-shadow-black">Map Type</h1>
 
       <Select
         value={mapType}
         onValueChange={(value) => setMapType(value)}
       >
-        <SelectTrigger className="sm:w-45 400:w-70 w-full">
+        <SelectTrigger className="sm:w-45 400:w-70 w-full  ">
           <SelectValue placeholder="Theme" />
         </SelectTrigger>
-        <SelectContent className="z-1000">
+        <SelectContent className="z-1010">
           {types.map((type) => (
             <SelectItem
               key={type}
